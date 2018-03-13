@@ -23,7 +23,7 @@ use MMXS\TIM\TimException;
  */
 class CreateGroupRequest extends AbstractRequest
 {
-
+    use GroupIdTrait;
     public function getUri(): string
     {
         return 'group_open_http_svc/create_group';

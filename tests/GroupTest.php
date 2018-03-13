@@ -8,11 +8,11 @@
 
 namespace tests;
 
-use MMXS\TIM\Gateway;
+use MMXS\TIM\Constant\GroupType;
+use MMXS\TIM\Constant\JoinGroupType;
 use MMXS\TIM\Request\CreateGroupRequest;
 use MMXS\TIM\Request\DestroyGroupRequest;
 use MMXS\TIM\Request\GetGroupInfoRequest;
-use MMXS\TIM\TLS\TLSSig;
 use PHPUnit\Framework\TestCase;
 
 class GroupTest extends TestCase
@@ -29,10 +29,10 @@ class GroupTest extends TestCase
     {
         /** @var CreateGroupRequest $request */
         $request = Helper::getGateway()->createGroup();
-        $request->setType($request::TYPE_PUBLIC)
+        $request->setType(GroupType::PUBLIC)
             ->setName('test room')
             ->setIntroduction('test introduction')
-            ->setApplyJoinOption($request::JOIN_OPT_DISABLE_APPLY);
+            ->setApplyJoinOption(JoinGroupType::NEED_PERMISSION);
 
         $response = $request->send();
         $this->assertTrue($response->isSuccessFul());

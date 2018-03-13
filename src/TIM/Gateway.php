@@ -20,6 +20,9 @@ use Psr\Log\LoggerInterface;
  * @method accountImport()
  * @method destroyGroup()
  * @method getGroupInfo()
+ * @method getGroupMemberInfo()
+ * @method getJoinedGroupList()
+ * @method sendGroupMsg()
  */
 class Gateway
 {
