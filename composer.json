@@ -1,0 +1,30 @@
+{
+  "name": "mmxs/tim",
+  "description": "tencent im restful api",
+  "license": "MIT",
+  "version": "0.0.1",
+  "authors": [
+    {
+      "name": "陈明明",
+      "email": "chenmingming@yixia.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "MMXS\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "tests\\": "tests/"
+    }
+  },
+  "require": {
+    "php": "^7.2",
+    "psr/log": "^1.0",
+    "guzzlehttp/guzzle": "^6.3"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^7.0"
+  }
+}
