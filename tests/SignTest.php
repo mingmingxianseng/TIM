@@ -11,14 +11,14 @@ namespace tests;
 use MMXS\TIM\TLS\TLSSig;
 use PHPUnit\Framework\TestCase;
 
-class TestSign extends TestCase
+class SignTest extends TestCase
 {
     public function testSign()
     {
-        $config = require_once "config/config.php";
-        $signer = new TLSSig($config['app_id'], $config['private_key'], $config['public_key']);
+        $gateway = Helper::getGateway();
 
-        $sign = $signer->genSig('chenmingming');
+        $signer = $gateway->getSigner();
+        $sign   = $signer->genSig('chenmingming');
 
         var_dump($sign);
         $this->assertTrue(is_string($sign));

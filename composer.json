@@ -2,7 +2,7 @@
   "name": "mmxs/tim",
   "description": "tencent im restful api",
   "license": "MIT",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "authors": [
     {
       "name": "陈明明",
@@ -25,6 +25,6 @@
     "guzzlehttp/guzzle": "^6.3"
   },
   "require-dev": {
-    "phpunit/phpunit": "^7.0"
+    "phpunit/phpunit": "^6.5"
   }
 }

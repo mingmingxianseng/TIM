@@ -9,44 +9,14 @@
 namespace MMXS\TIM\Request;
 
 use MMXS\TIM\AbstractRequest;
-use MMXS\TIM\Response\CommonResponse;
-use MMXS\TIM\ResponseInterface;
 
 class DestroyGroupRequest extends AbstractRequest
 {
-
-    /**
-     * setGroupId
-     *
-     * @author chenmingming
-     *
-     * @param $groupId
-     *
-     * @return $this
-     */
-    public function setGroupId($groupId)
-    {
-        $this->body['GroupId'] = $groupId;
-
-        return $this;
-    }
+    use GroupIdTrait;
 
     public function getUri(): string
     {
         return 'group_open_http_svc/destroy_group';
-    }
-
-    /**
-     * send
-     *
-     * @author chenmingming
-     * @return ResponseInterface
-     */
-    public function send(): ResponseInterface
-    {
-        $response = $this->request();
-
-        return new CommonResponse($response->getBody()->getContents(), $this);
     }
 
 }

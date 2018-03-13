@@ -9,6 +9,8 @@
 namespace MMXS\TIM\Request;
 
 use MMXS\TIM\AbstractRequest;
+use MMXS\TIM\Constant\GroupType;
+use MMXS\TIM\Constant\JoinGroupType;
 use MMXS\TIM\Response\CreateGroupResponse;
 use MMXS\TIM\ResponseInterface;
 use MMXS\TIM\TimException;
@@ -21,42 +23,6 @@ use MMXS\TIM\TimException;
  */
 class CreateGroupRequest extends AbstractRequest
 {
-    //群组形态
-    // 公开群
-    const TYPE_PUBLIC = 'Public';
-    // 私密群
-    const TYPE_PRIVATE = 'Private';
-    // 聊天室
-    const TYPE_CHAT_ROOM = 'ChatRoom';
-    // 互动聊天室
-    const TYPE_AV_CHAT_ROOM = 'AVChatRoom';
-    // 在线成员广播大群
-    const TYPE_B_CHAT_ROOM = 'BChatRoom';
-
-    const TYPE_LIST
-        = [
-            self::TYPE_PUBLIC,
-            self::TYPE_PRIVATE,
-            self::TYPE_CHAT_ROOM,
-            self::TYPE_AV_CHAT_ROOM,
-            self::TYPE_B_CHAT_ROOM
-        ];
-
-    // 入群方式
-
-    // 自由加入
-    const JOIN_OPT_FREE = 'FreeAccess';
-    // 需要验证  默认
-    const JOIN_OPT_NEED_PERMISSION = 'NeedPermission';
-    // 禁止加群
-    const JOIN_OPT_DISABLE_APPLY = 'DisableApply';
-
-    const JOIN_OPT_LIST
-        = [
-            self::JOIN_OPT_FREE,
-            self::JOIN_OPT_NEED_PERMISSION,
-            self::JOIN_OPT_DISABLE_APPLY
-        ];
 
     public function getUri(): string
     {
@@ -171,7 +137,7 @@ class CreateGroupRequest extends AbstractRequest
      */
     public function setApplyJoinOption($option)
     {
-        if (!in_array($option, self::JOIN_OPT_LIST)) {
+        if (!in_array($option, JoinGroupType::TYPE_LIST)) {
             throw new TimException("ApplyJoinOption is invalid");
         }
         $this->body['ApplyJoinOption'] = $option;
@@ -207,7 +173,7 @@ class CreateGroupRequest extends AbstractRequest
      */
     public function setType($type)
     {
-        if (!in_array($type, self::TYPE_LIST)) {
+        if (!in_array($type, GroupType::TYPE_LIST)) {
             throw new TimException("Type [\"{$type}\"] is invalid.");
         }
         $this->body['Type'] = $type;

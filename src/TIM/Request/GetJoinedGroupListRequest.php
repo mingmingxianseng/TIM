@@ -3,40 +3,50 @@
  * Created by PhpStorm.
  * User: chenmingming
  * Date: 2018/3/13
- * Time: 10:31
+ * Time: 14:45
  */
 
 namespace MMXS\TIM\Request;
 
 use MMXS\TIM\AbstractRequest;
-use MMXS\TIM\Response\GetGroupInfoResponse;
 
-/**
- * Class GetGroupInfoRequest
- *
- * @method GetGroupInfoResponse send()
- * @package MMXS\TIM\Request
- * @wiki https://cloud.tencent.com/document/product/269/1617
- */
-class GetGroupInfoRequest extends AbstractRequest
+class GetJoinedGroupListRequest extends AbstractRequest
 {
+    use PageTrait;
+
     public function getUri(): string
     {
-        return 'group_open_http_svc/get_group_info';
+        return 'group_open_http_svc/get_joined_group_list';
     }
 
     /**
-     * setGroupList
+     * setMemberAccount
      *
      * @author chenmingming
      *
-     * @param array $groupList
+     * @param $account
      *
      * @return $this
      */
-    public function setGroupList(array $groupList)
+    public function setMemberAccount($account)
     {
-        $this->body['GroupIdList'] = $groupList;
+        $this->body['Member_Account'] = $account;
+
+        return $this;
+    }
+
+    /**
+     * setGroupType
+     *
+     * @author chenmingming
+     *
+     * @param $groupType
+     *
+     * @return $this
+     */
+    public function setGroupType($groupType)
+    {
+        $this->body['GroupType'] = $groupType;
 
         return $this;
     }

@@ -9,6 +9,7 @@
 namespace MMXS\TIM;
 
 use GuzzleHttp\Client;
+use MMXS\TIM\Response\CommonResponse;
 
 abstract class AbstractRequest implements RequestInterface
 {
@@ -92,5 +93,22 @@ abstract class AbstractRequest implements RequestInterface
     public function getClient(): Client
     {
         return $this->client;
+    }
+
+    /**
+     * send
+     *
+     * @author chenmingming
+     * @return ResponseInterface
+     */
+    public function send(): ResponseInterface
+    {
+        $response  = $this->request();
+        $className = str_replace("Request", 'Response', static::class);
+        if (!class_exists($className)) {
+            $className = CommonResponse::class;
+        }
+
+        return new $className($response->getBody()->getContents(), $this);
     }
 }
