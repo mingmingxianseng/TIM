@@ -7,7 +7,7 @@
  */
 return $config = [
     'app_id'        => '213414343',
-    'accountType'   => '23571',
+    'account_type'   => '23571',
     'admin_account' => 'admin-account',
     'private_key'   => '私钥内容',
     'public_key'    => '公钥内容'
