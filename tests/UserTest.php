@@ -9,6 +9,8 @@
 namespace tests;
 
 use MMXS\TIM\Constant\GroupType;
+use MMXS\TIM\Constant\JoinGroupType;
+use MMXS\TIM\Entity\Message\CustomMsg;
 use MMXS\TIM\Entity\Message\TextMsg;
 use MMXS\TIM\Request\AccountImportRequest;
 use MMXS\TIM\Request\CreateGroupRequest;
@@ -47,10 +49,12 @@ class UserTest extends TestCase
             ->setType(GroupType::PUBLIC)
             ->addMember('chenmingming')
             ->addMember('lubeibei')
-            ->setGroupId('@TTT#123$1234');
+            ->setGroupId('@MATCH#123')
+            ->setApplyJoinOption(JoinGroupType::NEED_PERMISSION);
         $res = $req->send();
-
+        var_dump($res->getData());
         $this->assertTrue($res->isSuccessFul());
+
     }
 
     public function testSendMsg()
@@ -59,13 +63,20 @@ class UserTest extends TestCase
         /** @var SendGroupMsgRequest $req */
         $req = $gateway->sendGroupMsg();
 
-        $msg = new TextMsg();
-        $msg->setText('hello');
-        $req->setGroupId('@TTT#123$1234')
-            ->setRandom(mt_rand(10000, 999999))
-            ->setMsgBody([$msg->getData()]);
+        $groupId = '@MATCH#123';
+        $msg     = new TextMsg();
+        $msg->setText('hello22222');
+        $msg = new CustomMsg();
+        $msg->setDesc('1234')
+            ->setData(json_encode(['1111' => 2222]))
+            ->setExt('ext');
+        $req->setGroupId($groupId)
+            ->setRandom(mt_rand(100000, 9999999))
+            ->addMsg($msg)
+            ->setFromAccount('lubeibei');
 
         $res = $req->send();
+        var_dump($res->getData());
 
         $this->assertTrue($res->isSuccessFul());
     }

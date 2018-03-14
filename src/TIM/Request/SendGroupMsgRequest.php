@@ -9,6 +9,8 @@
 namespace MMXS\TIM\Request;
 
 use MMXS\TIM\AbstractRequest;
+use MMXS\TIM\Entity\Message\AbstractMsg;
+use MMXS\TIM\Entity\Message\MsgInterface;
 
 class SendGroupMsgRequest extends AbstractRequest
 {
@@ -42,6 +44,22 @@ class SendGroupMsgRequest extends AbstractRequest
     public function setMsgBody(array $messages)
     {
         $this->body['MsgBody'] = $messages;
+
+        return $this;
+    }
+
+    /**
+     * addMsg
+     *
+     * @author chenmingming
+     *
+     * @param MsgInterface $msg
+     *
+     * @return $this
+     */
+    public function addMsg(MsgInterface $msg)
+    {
+        $this->body['MsgBody'][] = $msg->getData();
 
         return $this;
     }
@@ -93,7 +111,9 @@ class SendGroupMsgRequest extends AbstractRequest
 
     /**
      * setOfflinePushInfo
+     *
      * @author chenmingming
+     *
      * @param array $info
      *
      * @return $this
@@ -120,7 +140,6 @@ class SendGroupMsgRequest extends AbstractRequest
 
         return $this;
     }
-
 
     public function getUri(): string
     {

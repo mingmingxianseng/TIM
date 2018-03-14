@@ -23,7 +23,7 @@ abstract class AbstractMsg implements MsgInterface
      * @author chenmingming
      * @return array
      */
-    public function getData()
+    public function getData(): array
     {
         return [
             'MsgType'    => $this->getMsgType(),

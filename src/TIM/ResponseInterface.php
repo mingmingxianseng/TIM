@@ -33,4 +33,11 @@ interface ResponseInterface
      * @return string
      */
     public function getCode(): string;
+
+    /**
+     * getData 获取返回对象
+     * @author chenmingming
+     * @return mixed
+     */
+    public function getData();
 }

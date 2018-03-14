@@ -25,4 +25,12 @@ interface MsgInterface
      * @return array
      */
     public function getMsgContent(): array;
+
+    /**
+     * getData 获取整个消息结构体
+     *
+     * @author chenmingming
+     * @return array
+     */
+    public function getData(): array;
 }
