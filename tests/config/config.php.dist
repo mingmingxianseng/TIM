@@ -9,6 +9,6 @@ return $config = [
     'app_id'        => '213414343',
     'account_type'   => '23571',
     'admin_account' => 'admin-account',
-    'private_key'   => '私钥内容',
-    'public_key'    => '公钥内容'
+    'private_key'   => '/etc/key/private_key',
+    'public_key'    => '/etc/key/public_key'
 ];

@@ -2,3 +2,5 @@
 .idea
 /tests/config/config.php
 /phpunit.xml
+/tests/config/private_key
+/tests/config/public_key

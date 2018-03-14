@@ -49,7 +49,6 @@ class UserTest extends TestCase
             ->setType(GroupType::PUBLIC)
             ->addMember('chenmingming')
             ->addMember('lubeibei')
-            ->setGroupId('@MATCH#123')
             ->setApplyJoinOption(JoinGroupType::NEED_PERMISSION);
         $res = $req->send();
         var_dump($res->getData());

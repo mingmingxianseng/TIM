@@ -10,15 +10,24 @@ namespace tests;
 
 use MMXS\TIM\Gateway;
 use Psr\Log\NullLogger;
+use tests\Cache\ArrayCacheItemPool;
 
 class Helper
 {
+    /**
+     * getGateway
+     *
+     * @author chenmingming
+     * @return Gateway
+     * @throws \MMXS\TIM\TimException
+     * @throws \Psr\Cache\InvalidArgumentException
+     */
     static public function getGateway()
     {
         static $gateway;
 
         if (null === $gateway) {
-            $gateway = new Gateway(include_once 'config/config.php', new NullLogger());
+            $gateway = new Gateway(include_once 'config/config.php', new NullLogger(), new ArrayCacheItemPool());
         }
 
         return $gateway;

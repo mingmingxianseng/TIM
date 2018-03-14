@@ -10,6 +10,7 @@ namespace MMXS\TIM;
 
 use GuzzleHttp\Client;
 use MMXS\TIM\TLS\TLSSig;
+use Psr\Cache\CacheItemPoolInterface;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -33,7 +34,7 @@ class Gateway
     private $config
         = [
             'app_id'        => '',
-            'accountType'   => '',
+            'account_type'  => '',
             'admin_account' => '',
             'private_key'   => '',
             'public_key'    => ''
@@ -46,24 +47,35 @@ class Gateway
      * @var LoggerInterface
      */
     private $logger;
+    /**
+     * @var CacheItemPoolInterface
+     */
+    private $cachePool;
 
     /**
      * Gateway constructor.
      *
-     * @param array           $config
-     * @param LoggerInterface $logger
+     * @param array                  $config
+     * @param LoggerInterface        $logger
      *
-     * @throws \Exception
+     * @param CacheItemPoolInterface $cacheItemPool
+     *
+     * @throws TimException
+     * @throws \Psr\Cache\InvalidArgumentException
      */
-    public function __construct($config = [], LoggerInterface $logger)
+    public function __construct($config = [], LoggerInterface $logger, CacheItemPoolInterface $cacheItemPool)
     {
         $this->config     = array_merge($this->config, $config);
+        $this->cachePool  = $cacheItemPool;
         $this->identifier = $this->config['admin_account'];
         $this->appId      = $this->config['app_id'];
         $this->client     = new Client();
         $this->logger     = $logger;
-        $this->signer     = new TLSSig($this->appId, $this->config['private_key'], $this->config['public_key']);
+        $this->signer     = new TLSSig(
+            $this->appId, $this->config['private_key'], $this->config['public_key'], $cacheItemPool
+        );
         $this->userSig    = $this->signer->genSig($this->identifier);
+
     }
 
     /**
