@@ -31,8 +31,7 @@ class TLSSig
     {
         $this->app_id     = $app_id;
         $this->cachePool  = $cacheItemPool;
-        $cacheKey         = md5($this->private_key);
-        $privateCacheItem = $this->cachePool->getItem($cacheKey);
+        $privateCacheItem = $this->cachePool->getItem('im.private.' . md5($this->private_key));
         if (!$privateCacheItem->isHit()) {
             if (!is_file($private_key_path) || !is_readable($private_key_path)) {
                 throw new TimException("private key is not exist or is not readable.");
@@ -45,12 +44,10 @@ class TLSSig
         if ($this->private_key === false) {
             throw new TimException(openssl_error_string());
         }
-
-        $cacheKey   = md5($this->public_key);
-        $publicItem = $this->cachePool->getItem($cacheKey);
+        $publicItem = $this->cachePool->getItem('im.public.' . md5($this->public_key));
         if (!$publicItem->isHit()) {
             if (!is_file($public_key_path) || !is_readable($public_key_path)) {
-                throw new TimException("public key is not exist or is not readable.");
+                throw new TimException("private key is not exist or is not readable.");
             }
             $content = file_get_contents($public_key_path);
             $publicItem->set($content);
