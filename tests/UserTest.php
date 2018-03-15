@@ -26,12 +26,20 @@ class UserTest extends TestCase
         /** @var AccountImportRequest $request */
         $request = $gateway->accountImport();
 
-        $request->setIdentifier('lubeibei')
-            ->setNick('陆蓓蓓');
+        $request->setIdentifier('fandongdong')
+            ->setNick('范东东');
 
         $response = $request->send();
 
         $this->assertTrue($response->isSuccessFul());
+    }
+
+    public function testUser()
+    {
+        $gateway = Helper::getGateway();
+        $sig     = $gateway->getSigner()->genSig('chenmingming');
+
+        echo $sig;
     }
 
     public function testUserSig()
@@ -45,10 +53,10 @@ class UserTest extends TestCase
         /** @var CreateGroupRequest $req */
         $req = $gateway->createGroup();
 
-        $req->setName('test')
+        $req->setName('test-ANDROID')
             ->setType(GroupType::PUBLIC)
             ->addMember('chenmingming')
-            ->addMember('lubeibei')
+            ->addMember('lianjiwei')
             ->setApplyJoinOption(JoinGroupType::NEED_PERMISSION);
         $res = $req->send();
         var_dump($res->getData());
@@ -62,17 +70,17 @@ class UserTest extends TestCase
         /** @var SendGroupMsgRequest $req */
         $req = $gateway->sendGroupMsg();
 
-        $groupId = '@MATCH#123';
+        $groupId = '@TGS#2BU52ODFV';
         $msg     = new TextMsg();
         $msg->setText('hello22222');
         $msg = new CustomMsg();
         $msg->setDesc('1234')
-            ->setData(json_encode(['1111' => 2222]))
+            ->setData(json_encode(['1111' => "纪委聊天室"]))
             ->setExt('ext');
         $req->setGroupId($groupId)
             ->setRandom(mt_rand(100000, 9999999))
             ->addMsg($msg)
-            ->setFromAccount('lubeibei');
+            ->setFromAccount('lianjiwei');
 
         $res = $req->send();
         var_dump($res->getData());

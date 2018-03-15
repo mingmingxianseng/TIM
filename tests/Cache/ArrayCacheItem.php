@@ -38,6 +38,8 @@ class ArrayCacheItem implements CacheItemInterface
     public function set($value)
     {
         $this->value = $value;
+
+        return $this;
     }
 
     public function expiresAt($expiration)

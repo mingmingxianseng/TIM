@@ -116,4 +116,12 @@ class Gateway
         return $this->logger;
     }
 
+    /**
+     * @return string
+     */
+    public function getAppId()
+    {
+        return $this->appId;
+    }
+
 }
